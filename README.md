@@ -11,13 +11,17 @@
 
 `$ sudo apt install nodejs`
 
-3. Start server
+3. Install packages
+
+`npm install`
+
+4. Start server
 
 `npm start`
 
-4. Open the pilot.html static on Chrome
+5. Open the pilot.html static on Chrome
 
-5. Win
+6. Win
 
 ## Note:
 All data will be saved to db.json
