@@ -1,20 +1,27 @@
 # Pilot
 
+## Instructions
 1. clone this repo
 
-2. Install nodejs and npm. For linux mint:
-sudo apt update
-sudo apt install nodejs
+`$ git clone git@github.com:CalebeGeazi/Pilot.git`
 
-3. Install json-server
-npm install -g json-server
+2. Install nodejs and npm. For linux mint:
+
+`$ sudo apt update`
+
+`$ sudo apt install nodejs`
+
+3. Install packages
+
+`npm install`
 
 4. Start server
-cd to the pilot folder, the run
-json-server --port 8888 --watch db.json
+
+`npm start`
 
 5. Open the pilot.html static on Chrome
 
 6. Win
 
+## Note:
 All data will be saved to db.json
