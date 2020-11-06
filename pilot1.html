@@ -17,7 +17,7 @@
 }
 
 .primary {
-  font-size: 110px;
+  font-size: 210px;
   margin: 40px;
   color: #bc4b51;
   font-family: serif;
@@ -31,7 +31,7 @@
 }
 
 .secondary {
-  font-size: 36px;
+  font-size: 38px;
   color: #6e954b;
   width: 33.33%;
   font-style: italic;
@@ -45,7 +45,7 @@
   width: 100%;
   font-style: normal;
   font-weight: bold;
-  font-size: 58px;
+  font-size: 65px;
 }
 
 .form {
@@ -78,7 +78,7 @@ input[name="phoneNumber"] {
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
-  font-size: 40px;
+  font-size: 36px;
   color: green;
   justify-content: center;
 }
@@ -87,23 +87,27 @@ input[name="phoneNumber"] {
   display: none;
 }
 
+.modal-text {
+  max-width: 550px;
+  padding: 20px;
+}
+
 .main.modal-shown {
   opacity: 0.5;
 }
 
 svg {
   background-color: #008000;
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
   padding: 30px;
   margin: 25px;
 }
-
     </style>
     <div class="main">
       <div class="primary">Paying Cash?</div>
-      <div class="secondary outside">Enter your <u>phone number</u> &amp; <u>drop your coins</u> here.</div>
+      <div class="secondary outside">Enter your <u>phone #</u> &amp; <u>drop your coins</u> here.</div>
       <div class="box">
         <div class="secondary">We'll invest them in Bitcoin &amp; Gold.</div>
         <div class="form">
@@ -117,7 +121,7 @@ svg {
           <path fill="currentcolor" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
         </g>
       </svg>
-      <div> Thank you for participating!</div>
+      <div class="modal-text">Awesome! Coins deposited in the next 30 seconds will be added to your account. New users will receive a text messsage within a few hours.</div>
     </div>
   <script type="text/javascript">
     const phone = document.getElementById("phoneNumber");
@@ -178,7 +182,7 @@ svg {
             phone.focus()
             interval = setTimeout(function() {
               modal.classList.toggle("hidden");
-            }, 2000);
+            }, 10000);
           }
 
         }
