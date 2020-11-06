@@ -1,0 +1,195 @@
+<html lang="en-us"><head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+  </head>
+  <body class="text-10" cz-shortcut-listen="true">
+    <style type="text/css">
+      body {
+  background-color: #f4e285;
+}
+
+.main {
+  text-align: center;
+  max-width: 1366px;
+  margin: auto;
+}
+
+.primary {
+  font-size: 110px;
+  margin: 40px;
+  color: #bc4b51;
+  font-family: serif;
+  font-weight: bold;
+}
+
+.box {
+  align-items: flex-end;
+  display: flex;
+  margin: auto 100px;
+}
+
+.secondary {
+  font-size: 36px;
+  color: #6e954b;
+  width: 33.33%;
+  font-style: italic;
+}
+
+.outside {
+  margin-bottom: 25px;
+}
+
+.secondary.outside {
+  width: 100%;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 58px;
+}
+
+.form {
+  margin: auto;
+  max-width: 1000px;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+input[name="phoneNumber"] {
+  width: 315px;
+  color: #bc4b51;
+  padding: 8px;
+  font-size: 40px;
+  border-width: 1px;
+  border-radius: 0.125rem;
+  border-color: #a0aec0;
+}
+
+.modal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 350px;
+  width: 800px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  font-size: 40px;
+  color: green;
+  justify-content: center;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.main.modal-shown {
+  opacity: 0.5;
+}
+
+svg {
+  background-color: #008000;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  padding: 30px;
+  margin: 25px;
+}
+
+    </style>
+    <div class="main">
+      <div class="primary">Paying Cash?</div>
+      <div class="secondary outside">Enter your <u>phone number</u> &amp; <u>drop your coins</u> here.</div>
+      <div class="box">
+        <div class="secondary">We'll invest them in Bitcoin &amp; Gold.</div>
+        <div class="form">
+          <input class="block p-1 rounded-sm text-13 text-red-700 border border-gray-500" name="phoneNumber" id="phoneNumber" placeholder="(xxx) xxx-xxxx" maxlength="16"></div>
+        <div class="secondary">You'll get a link for when you want to withdraw.</div>
+      </div>
+    </div>
+    <div id="modal" class="modal hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <g color="white">
+          <path fill="currentcolor" d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
+        </g>
+      </svg>
+      <div> Thank you for participating!</div>
+    </div>
+  <script type="text/javascript">
+    const phone = document.getElementById("phoneNumber");
+    phone.focus()
+    const modal = document.getElementById("modal");
+
+
+    const isNumericInput = (event) => {
+      const key = event.keyCode;
+      return ((key >= 48 && key <= 57) ||
+        (key >= 96 && key <= 105)
+      );
+    };
+
+    const isModifierKey = (event) => {
+      const key = event.keyCode;
+      return (event.shiftKey === true || key === 35 || key === 36) ||
+        (key === 8 || key === 9 || key === 13 || key === 46) ||
+        (key > 36 && key < 41) ||
+        (
+          (event.ctrlKey === true || event.metaKey === true) &&
+          (key === 65 || key === 67 || key === 86 || key === 88 || key === 90)
+        )
+    };
+
+    const enforceFormat = (event) => {
+      if(!isNumericInput(event) && !isModifierKey(event)){
+        event.preventDefault();
+      }
+    };
+
+    const formatToPhone = (event) => {
+      if(isModifierKey(event)) {return;}
+
+        const target = event.target;
+        const input = event.target.value.replace(/\D/g,'').substring(0,10);
+        const zip = input.substring(0,3);
+        const middle = input.substring(3,6);
+        const last = input.substring(6,10);
+
+        if(input.length > 6){
+          target.value = `(${zip}) ${middle} - ${last}`;
+          if(input.length == 10) {
+            modal.classList.toggle("hidden");
+            number = phone.value.replace(/\D/g,'');
+            date = new Date();
+            fetch('http://localhost:8888/data/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                phone: number,
+                date: date
+              })
+            });
+            phone.value = "";
+            phone.focus()
+            interval = setTimeout(function() {
+              modal.classList.toggle("hidden");
+            }, 2000);
+          }
+
+        }
+        else if(input.length > 3){target.value = `(${zip}) ${middle}`;}
+        else if(input.length > 0){target.value = `(${zip}`;}
+      };
+
+      const inputElement = document.getElementById('phoneNumber');
+      inputElement.addEventListener('keydown',enforceFormat);
+      inputElement.addEventListener('keyup',formatToPhone);
+
+  </script>
+</body>
+</html>
