@@ -106,7 +106,7 @@ svg {
 }
     </style>
     <div class="main">
-      <div class="primary">Paying Cash?</div>
+      <div id="primary" class="primary">Paying Cash?</div>
       <div class="secondary outside">Enter your <u>phone #</u> &amp; <u>drop your coins</u> here.</div>
       <div class="box">
         <div class="secondary">We'll invest them in Bitcoin &amp; Gold.</div>
@@ -193,6 +193,16 @@ svg {
       const inputElement = document.getElementById('phoneNumber');
       inputElement.addEventListener('keydown',enforceFormat);
       inputElement.addEventListener('keyup',formatToPhone);
+
+      var colors = ["#bc4b51", "#125b72", "#b25b12"]
+      var primary = document.getElementById("primary")
+      var count = 0;
+      function changeColor() {
+        primary.style.color = colors[count%3];
+        count++;
+      }
+
+      setInterval(changeColor, 150)
 
   </script>
 </body>
